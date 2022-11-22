@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1662116565 source:c:\users\user\documents\sampoerna university\semester 2\computer programming for engineering applications\[course] data strucuture\main.cpp
+	<iostream>
+
+1669101653 source:c:\users\user\documents\sampoerna university\semester 3\data structure\[course] data strucuture\main.cpp
+	<iostream>
+	<list>
+	<vector>
+
+1663062735 source:c:\users\user\documents\sampoerna university\semester 3\data structure\[course] data strucuture\src\destination.cpp
+	"Destination.h"
+
+1663062727 c:\users\user\documents\sampoerna university\semester 3\data structure\[course] data strucuture\include\destination.h
+
