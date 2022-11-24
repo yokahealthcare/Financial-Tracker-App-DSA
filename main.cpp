@@ -211,10 +211,9 @@ void printCalendar(int year){
 int main()
 {
     cout << "\t\tWelcome to your\n\tMonthly Financial Tracker\n";
-    int year;
-    printCalendar(year);
 
     string menus[] = {
+        "View Calendar",
         "Add",
         "Exit"
     };
@@ -230,13 +229,19 @@ int main()
     while(!exited) {
         // Print the menus
         //cout << "\n ===> FINANCIAL TRACKER" << endl;
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < 3; i++) {
             cout << i+1 << ") " << menus[i] << endl;
         }
         cout << ">>> ";
         cin >> tmp;
 
-        if(tmp == 1) {
+        if (tmp==1){
+            int year;
+            cout << "\n";
+            printCalendar(year);
+            cout << "\n";
+        }
+        else if(tmp == 2) {
             // ADD
             // MONTHS
             // only run when first data entered (which is tmp_month)
@@ -293,7 +298,7 @@ int main()
             tree->printPreorder(tree->root);
             cout << "\n\n";
 
-        } else if(tmp == 2) {
+        } else if(tmp == 3) {
             // EXIT
             exited = true;
         } else {
