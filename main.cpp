@@ -1,8 +1,12 @@
 #include <iostream>
 #include <list>
 #include <vector>
+#include <algorithm>
+#include <bits/stdc++.h>
+#include "printCalendar.h"
 using namespace std;
 
+// NODE
 class TreeNode
 {
 	public:
@@ -20,6 +24,7 @@ class TreeNode
 	}
 };
 
+// TREE
 class NAryTree
 {
 	public:
@@ -47,6 +52,26 @@ class NAryTree
 	}
 };
 
+int getIndex(vector<int> v, int K)
+{
+    auto it = find(v.begin(), v.end(), K);
+
+    // If element was found
+    if (it != v.end())
+    {
+
+        // calculating the index
+        // of K
+        int index = it - v.begin();
+        return index;
+    }
+    else {
+        // If the element is not
+        // present in the vector
+        return -1;
+    }
+}
+
 
 // function for printing the elements in a list
 void showlist(list<int> g)
@@ -57,155 +82,100 @@ void showlist(list<int> g)
     cout << '\n';
 }
 
+void printVectors(vector<int> k) {
+    for(int i : k)
+        cout << i << endl;
+}
+
 int main()
 {
-    int tmp;
-    bool exited = false;
+    cout << "\t\tWelcome to your\n\tMonthly Financial Tracker\n";
+    int year;
+    printCalendar(year);
+                
     string menus[] = {
         "Add",
         "Exit"
     };
 
-    string months[] = {
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    };
-
-    string week[] = {
-        "week 1",
-        "week 2",
-        "week 3",
-        "week 4"
-    };
-
-    list<int> expenses;
+    // DEFINE TREE
     NAryTree *tree = new NAryTree();
 
-    vector<int> week_component_tracker;
-    vector<vector<int>> day_component_tracker = {{}, {}, {}, {}};
-    bool first_time = true;
-
+    int tmp, tmp_month, tmp_week, tmp_day, tmp_expense;
+    bool exited = false, root_data_exist = false;
+    vector<int> week_vector;
+    vector<vector<int>> day_vector = {{}, {}, {}, {}};
 
     while(!exited) {
-        cout << "\t\t\t#FINANCIAL TRACKER#" << endl;
-        cout << "\t\t\t===================" << endl;
-        cout << "\t\t\tCreated by GROUP 3" << endl;
-        cout << "MENU" << endl;
-        cout << "----" << endl;
+        // Print the menus
+        //cout << "\n ===> FINANCIAL TRACKER" << endl;
         for(int i = 0; i < 2; i++) {
             cout << i+1 << ") " << menus[i] << endl;
         }
-
-        cout << "> ";
+        cout << ">>> ";
         cin >> tmp;
+
         if(tmp == 1) {
-            int tmp_month, tmp_week, tmp_day, tmp_expense;
-            if(first_time) {
-                // Print months
-                cout << "MONTHS" << endl;
-                for(int i = 0; i < 12; i++) {
-                    cout << i+1 << ") " << months[i] << endl;
-                }
-
-                cout << "Pick a Month : ";
+            // ADD
+            // MONTHS
+            // only run when first data entered (which is tmp_month)
+            if(!root_data_exist) {
+                cout << "INSERT MONTH (1-12) >>> ";
                 cin >> tmp_month;
-            }
-
-            cout << "\nWEEK" << endl;
-            for(int i = 0; i < 4; i++) {
-                cout << i+1 << ") " << week[i] << endl;
-            }
-
-            cout << "Pick a Week : ";
-            cin >> tmp_week;
-
-            cout << "\nDAY" << endl;
-            cout << "Pick a Day (1 to 7) : ";
-            cin >> tmp_day;
-
-            cout << "\nEXPENSES" << endl;
-            cout << "$ ";
-            cin >> tmp_expense;
-
-            // Only runned when first time run the program
-            if(first_time) {
+                // DEFINE ROOT
                 tree->root = new TreeNode(tmp_month);
-                first_time = false;
+                root_data_exist = true;
             }
 
 
             // WEEK
-            int selected_week_index;
-            if(week_component_tracker.size() == 0) {
-                // if first time
+            cout << "INSERT WEEK (1-4) >>> ";
+            cin >> tmp_week;
+            // check whether week has been entered before
+            int week_index = getIndex(week_vector, tmp_week);
+            if(week_index == -1) {
+                // week element not exist
+                // create #1 sub-tree from root
                 tree->root->addChild(tmp_week);
-                week_component_tracker.push_back(tmp_week); // to track the index
-                selected_week_index = 0;
-            } else {
-                for(int i = 0; i < week_component_tracker.size(); i++) {
-                    // check if it already there
-                    cout << "HERE!" << " i : " << i <<endl;
-                    if(tree->root->child.at(i)->data == tmp_week) {
-                        cout << "Already Here | WEEK" << endl;
-                        selected_week_index = i;
-                        break;
-                    } else if(i == week_component_tracker.size()-1){ // running only on last iteration
-                      tree->root->addChild(tmp_week);
-                      week_component_tracker.push_back(tmp_week); // to track the index
-                      selected_week_index = i;
-                      break;
-                    }
-                }
+                // store data in vector for tracking index later
+                week_vector.push_back(tmp_week);
+                // update week_index
+                week_index = week_vector.size()-1;
             }
 
             // DAY
-            int selected_day_index;
-            if(day_component_tracker[selected_week_index].size() == 0) {
-                // if first time
-                tree->root->child.at(selected_week_index)->addChild(tmp_day);
-                day_component_tracker[selected_week_index].push_back(tmp_day); // to track the index
-                selected_day_index = 0;
-            } else {
-                for(int i = 0; i < day_component_tracker[selected_week_index].size(); i++) {
-                    // check if it already there
-                    cout << "HERE! | DAY" << " i : " << i <<endl;
-                    if(tree->root->child.at(selected_week_index)->child.at(i)->data == tmp_day) {
-                        cout << "Already Here | DAY" << endl;
-                        selected_day_index = i;
-                        break;
-                    } else if(i == day_component_tracker[selected_week_index].size()-1){ // running only on last iteration
-                      tree->root->child.at(selected_week_index)->addChild(tmp_day);
-                      day_component_tracker[selected_week_index].push_back(tmp_day); // to track the index
-                      selected_day_index = i;
-                      break;
-                    }
-                }
+            cout << "INSERT DAY (1-7) >>> ";
+            cin >> tmp_day;
+            // check whether week has been entered before
+            int day_index = getIndex(day_vector.at(week_index), tmp_day);
+            if(day_index == -1) {
+                // day element not exist
+                // create #2 sub-tree from week
+                tree->root->child.at(week_index)->addChild(tmp_day);
+                // store data in vector for tracking index later
+                day_vector.at(week_index).push_back(tmp_day);
+                day_index = day_vector.at(week_index).size()-1;
             }
 
-            // EXPENSES (can be multiple expenses in one day)
-            tree->root->child.at(selected_week_index)->child.at(selected_day_index)->addChild(tmp_expense);
-            selected_day_index = NULL;
-            selected_week_index = NULL;
+            // EXPENSES
+            cout << "INSERT YOUR EXPENSE ON THIS DAY >>> ";
+            cin >> tmp_expense;
+            // create #3 sub-tree from day
+            tree->root->child.at(week_index)->child.at(day_index)->addChild(tmp_expense);
+
+
+
+            // [CHECKING METHODS] print preoder of the tree
+            cout << "\n  Preorder : \n";
+            tree->printPreorder(tree->root);
+            cout << "\n\n";
 
         } else if(tmp == 2) {
-            return 0;
+            // EXIT
+            exited = true;
+        } else {
+            cout << "Invalid Input!" << endl;
         }
-
-
-        cout << "\n  Preorder : \n";
-        // Print tree element
-        tree->printPreorder(tree->root);
-
     }
 
     return 0;
