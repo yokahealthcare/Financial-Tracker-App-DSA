@@ -1,6 +1,7 @@
-// Function to print the Month 
-
+// Function to print the calendar 
 #include<bits/stdc++.h>
+#include "printCalendar.h"
+
 using namespace std;
 
 /*A Function that returns the index of the day
@@ -47,8 +48,7 @@ string getMonthName(int monthNumber){
 
 
 // Return the number of days in a month
-int numberOfDays (int monthNumber, int year)
-{
+int numberOfDays (int monthNumber, int year){
 	// January, March, May, July, October, December
 	if (monthNumber == 0 || monthNumber == 2 || monthNumber == 4 || monthNumber == 6 || monthNumber == 7 || monthNumber == 9 || monthNumber == 11)
 		return (31);
@@ -119,6 +119,7 @@ void printCalendar(int year){
 	return;
 }
 
+/*
 int main()
 {
 	int year;
@@ -127,3 +128,4 @@ int main()
 
 	return (0);
 }
+*/
