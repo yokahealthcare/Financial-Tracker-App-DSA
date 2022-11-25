@@ -3,7 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <bits/stdc++.h>
-#include "printCalendar.h"
+#include "calendar.h"
 using namespace std;
 
 // NODE
@@ -59,7 +59,6 @@ int getIndex(vector<int> v, int K)
     // If element was found
     if (it != v.end())
     {
-
         // calculating the index
         // of K
         int index = it - v.begin();
@@ -89,9 +88,11 @@ void printVectors(vector<int> k) {
 
 int main()
 {
-    cout << "\t\tWelcome to your\n\tMonthly Financial Tracker\n";
-    int year;
-    printCalendar(year);
+    cout << "# WELCOME! #" << endl;
+    cout << "FINANCIAL TRACKER APP\n" << endl;
+
+    // to print a calendar. Just for user references
+    printCalendar();
 
     string menus[] = {
         "Add",
@@ -106,10 +107,8 @@ int main()
     vector<int> week_vector;
     vector<vector<int>> day_vector = {{}, {}, {}, {}};
 
+    // PROGRAM START
     while(!exited) {
-        // Print the menus
-        //cout << "\n ===> FINANCIAL TRACKER" << endl;
-
         for(int i = 0; i < 2; i++) {
             cout << i+1 << ") " << menus[i] << endl;
         }
@@ -163,7 +162,6 @@ int main()
             cin >> tmp_expense;
             // create #3 sub-tree from day
             tree->root->child.at(week_index)->child.at(day_index)->addChild(tmp_expense);
-
 
 
             // [CHECKING METHODS] print preoder of the tree
