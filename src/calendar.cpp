@@ -1,7 +1,5 @@
-// Function to print the calendar 
 #include<bits/stdc++.h>
-#include "printCalendar.h"
-
+#include "calendar.h"
 using namespace std;
 
 /*A Function that returns the index of the day
@@ -25,7 +23,6 @@ int dayNumber(int day, int month, int year)
 	return ( year + year/4 - year/100 + year/400 + t[month-1] + day) % 7;
 }
 
-
 /* Month Number Index
 0		January
 1		February
@@ -41,7 +38,12 @@ int dayNumber(int day, int month, int year)
 11		December    */
 
 string getMonthName(int monthNumber){
-	string months[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+	string months[] = {
+	    "January", "February", "March",
+	    "April", "May", "June", "July",
+	    "August", "September", "October",
+	    "November", "December"
+    };
 
 	return (months[monthNumber]);
 }
@@ -52,7 +54,7 @@ int numberOfDays (int monthNumber, int year){
 	// January, March, May, July, October, December
 	if (monthNumber == 0 || monthNumber == 2 || monthNumber == 4 || monthNumber == 6 || monthNumber == 7 || monthNumber == 9 || monthNumber == 11)
 		return (31);
-		
+
 	// April, June, September, November
 	if (monthNumber == 3 || monthNumber == 5 || monthNumber == 8 || monthNumber == 10)
 		return (30);
@@ -72,33 +74,32 @@ int numberOfDays (int monthNumber, int year){
 }
 
 // Function to print the calendar of the given year
-void printCalendar(int year){
-    
-	int monthNumber, days, i;
-	
+void printCalendar(){
+	int year, monthNumber, days, i;
+
 	cout << "Enter year: ";
 	cin >> year;
 	cout << "\n";
-	
+
 	cout << "Enter month number (1-12): ";
 	cin >> monthNumber;
 	cout << "\n";
-	
+
 	cout << "	Year: " << year << "\n";  //print year
-	
+
 	monthNumber -= 1; //adjust month number
-	
+
 	days = numberOfDays (monthNumber, year);
 
 	// Print the month name
-	cout << "------------"<<getMonthName (monthNumber).c_str() << "------------\n";		
-	cout << "number of days: "<< numberOfDays(monthNumber, year)<< "\n";
+	cout << "------------" << getMonthName(monthNumber).c_str() << "------------\n";
+	cout << "number of days: " << numberOfDays(monthNumber, year) << "\n";
 
-		// Print the columns
-	cout << " Sun Mon Tue Wed Thu Fri Sat\n";
-	
+    // Print the columns
+	cout << "Sun Mon Tue Wed Thu Fri Sat\n";
+
     int current = dayNumber (1, monthNumber+1, year);   // Index of the day from 0 to 6
-	
+
 	// Print appropriate spaces
 	for (i = 0; i < current; i++) cout << "     ";     //spacing still needs to be fixed
 
@@ -110,22 +111,9 @@ void printCalendar(int year){
 			cout << "\n";
 			}
 	}
-
 	if (i)
-	cout << "\n";
-
+        cout << "\n";
 	current = i;
 
-	return;
+	cout << "\n\n" << endl;
 }
-
-/*
-int main()
-{
-	int year;
-	
-	printCalendar(year);
-
-	return (0);
-}
-*/
