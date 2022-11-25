@@ -92,9 +92,10 @@ int main()
     cout << "FINANCIAL TRACKER APP\n" << endl;
 
     // to print a calendar. Just for user references
-    printCalendar();
+    //printCalendar();
 
     string menus[] = {
+        "View Calendar",
         "Add",
         "Exit"
     };
@@ -102,20 +103,24 @@ int main()
     // DEFINE TREE
     NAryTree *tree = new NAryTree();
 
-    int tmp, tmp_month, tmp_week, tmp_day, tmp_expense;
+    int tmp, tmp_month, tmp_week, tmp_day, tmp_expense, coba;
     bool exited = false, root_data_exist = false;
     vector<int> week_vector;
     vector<vector<int>> day_vector = {{}, {}, {}, {}};
 
     // PROGRAM START
     while(!exited) {
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < 3; i++) {
             cout << i+1 << ") " << menus[i] << endl;
         }
         cout << ">>> ";
         cin >> tmp;
 
         if(tmp == 1) {
+            cout << "\n";
+            printCalendar();
+            cout << "\n";
+        } else if(tmp == 2) {
             // ADD
             // MONTHS
             // only run when first data entered (which is tmp_month)
@@ -127,10 +132,14 @@ int main()
                 root_data_exist = true;
             }
 
+            //Input date for week and day
+            cout << "INSET DATE >>> ";
+            cin >> coba;
+            tmp_week=((coba-1)/7)+1;
+            tmp_day=((coba-1)%7)+1;
+
 
             // WEEK
-            cout << "INSERT WEEK (1-4) >>> ";
-            cin >> tmp_week;
             // check whether week has been entered before
             int week_index = getIndex(week_vector, tmp_week);
             if(week_index == -1) {
@@ -144,8 +153,6 @@ int main()
             }
 
             // DAY
-            cout << "INSERT DAY (1-7) >>> ";
-            cin >> tmp_day;
             // check whether week has been entered before
             int day_index = getIndex(day_vector.at(week_index), tmp_day);
             if(day_index == -1) {
@@ -169,7 +176,7 @@ int main()
             tree->printPreorder(tree->root);
             cout << "\n\n";
 
-        } else if(tmp == 2) {
+        } else if(tmp == 3) {
             // EXIT
             exited = true;
         } else {
