@@ -2,6 +2,8 @@
 #include <list>
 #include <vector>
 #include <algorithm>
+#include <bits/stdc++.h>
+#include "printCalendar.h"
 using namespace std;
 
 // NODE
@@ -87,6 +89,10 @@ void printVectors(vector<int> k) {
 
 int main()
 {
+    cout << "\t\tWelcome to your\n\tMonthly Financial Tracker\n";
+    int year;
+    printCalendar(year);
+
     string menus[] = {
         "Add",
         "Exit"
@@ -102,7 +108,8 @@ int main()
 
     while(!exited) {
         // Print the menus
-        cout << "\n ===> FINANCIAL TRACKER" << endl;
+        //cout << "\n ===> FINANCIAL TRACKER" << endl;
+
         for(int i = 0; i < 2; i++) {
             cout << i+1 << ") " << menus[i] << endl;
         }
