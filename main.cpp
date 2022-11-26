@@ -52,6 +52,48 @@ class NAryTree
 	}
 };
 
+//Linked List
+class NodeList{
+    public:
+    int data;
+    NodeList *link;
+};
+
+//function to insert to the linked list
+NodeList *insertList(NodeList *head, int temp_exp){
+    NodeList *temp = new NodeList();
+    temp -> data = temp_exp;
+    temp -> link = NULL;
+    if(head != NULL){
+        temp -> link = head;
+    }
+    head = temp;
+    return head;
+}
+//print linked list
+void PrintList(NodeList *head){
+	cout << "list is: ";
+
+	while(head != NULL){
+		cout << head -> data << " ";
+		head = head -> link;
+
+	}
+	cout << "\n";
+}
+//function to sum of the linked list
+void sumList(NodeList *head){
+    cout << "Total Expenses \t\t: ";
+    int sum = 0;
+    while(head != NULL){
+        sum += head -> data;
+        head = head -> link;
+    }
+    cout << sum;
+}
+
+
+
 int getIndex(vector<int> v, int K)
 {
     auto it = find(v.begin(), v.end(), K);
@@ -97,11 +139,15 @@ int main()
     string menus[] = {
         "View Calendar",
         "Add",
+        "Summary",
         "Exit"
     };
 
     // DEFINE TREE
     NAryTree *tree = new NAryTree();
+
+    // DEFINE LINKED LIST
+    NodeList *head = NULL;
 
     int tmp, tmp_month, tmp_week, tmp_day, tmp_expense, coba;
     bool exited = false, root_data_exist = false;
@@ -110,7 +156,8 @@ int main()
 
     // PROGRAM START
     while(!exited) {
-        for(int i = 0; i < 3; i++) {
+        cout << "\n";
+        for(int i = 0; i < 4; i++) {
             cout << i+1 << ") " << menus[i] << endl;
         }
         cout << ">>> ";
@@ -167,9 +214,12 @@ int main()
             // EXPENSES
             cout << "INSERT YOUR EXPENSE ON THIS DAY >>> ";
             cin >> tmp_expense;
+
+            // ADD EXPENSES TO LINKED LIST
+            head = insertList(head, tmp_expense);
+
             // create #3 sub-tree from day
             tree->root->child.at(week_index)->child.at(day_index)->addChild(tmp_expense);
-
 
             // [CHECKING METHODS] print preoder of the tree
             cout << "\n  Preorder : \n";
@@ -177,6 +227,10 @@ int main()
             cout << "\n\n";
 
         } else if(tmp == 3) {
+            cout << "\nSUMMARY OF FINANCIAL TRACKER\n" << endl;
+            sumList(head);
+
+        } else if(tmp == 4) {
             // EXIT
             exited = true;
         } else {
