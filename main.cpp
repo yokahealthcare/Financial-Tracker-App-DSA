@@ -123,9 +123,49 @@ void showlist(list<int> g)
     cout << '\n';
 }
 
+// function to convert get the elements in a list and return with array data type
+void getList(NodeList *head, vector<int>& arrList)
+{
+    while(head != NULL) {
+        arrList.push_back(head -> data);
+        head = head -> link;
+    }
+}
+
 void printVectors(vector<int> k) {
     for(int i : k)
         cout << i << endl;
+}
+
+// function for finding the Total, Min, Max, Avg spending
+void MinMaxAvg(vector<int> data) {
+  int size = data.size();
+
+  if (size > 0) {
+    int min = data[0];
+    int max = 0;
+    int sum = 0;
+    double avg = 0;
+
+    for (int i = 0; i < size; i++) {
+      sum += data[i];
+
+      if (data[i] > max) {
+        max = data[i];
+      }
+
+      else if (data[i] < min) {
+        min = data[i];
+      }
+    }
+    avg = sum / size;
+    cout << endl;
+    cout << "LOWEST  spending was\t: " << min << endl;
+    cout << "HIGHEST spending was\t: " << max << endl;
+    cout << "AVERAGE spending was\t: " << avg << endl;
+  } else {
+    cout << "No Data can Calculated!" << endl;
+  }
 }
 
 int main()
@@ -141,6 +181,20 @@ int main()
         "Add",
         "Summary",
         "Exit"
+    };
+
+    string month[] = {
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "September",
+        "October",
+        "November",
+        "December"
     };
 
     // DEFINE TREE
@@ -177,6 +231,8 @@ int main()
                 // DEFINE ROOT
                 tree->root = new TreeNode(tmp_month);
                 root_data_exist = true;
+            } else {
+                cout << "\nSELECTED MONTH : " << month[tmp_month-1] << endl;
             }
 
             //Input date for week and day
@@ -229,6 +285,10 @@ int main()
         } else if(tmp == 3) {
             cout << "\nSUMMARY OF FINANCIAL TRACKER\n" << endl;
             sumList(head);
+            // calling function for finding the Total, Min, Max, Avg spending
+            vector<int> arrList;
+            getList(head, arrList); // Put money spendings here
+            MinMaxAvg(arrList);
 
         } else if(tmp == 4) {
             // EXIT
