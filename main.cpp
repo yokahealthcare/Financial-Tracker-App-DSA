@@ -6,6 +6,8 @@
 #include "calendar.h"
 using namespace std;
 
+//maybe add currency conversion
+
 // NODE
 class TreeNode
 {
@@ -162,7 +164,7 @@ void MinMaxAvg(vector<int> data) {
     cout << endl;
     cout << "LOWEST  spending was\t: " << min << endl;
     cout << "HIGHEST spending was\t: " << max << endl;
-    cout << "AVERAGE spending was\t: " << avg << endl;
+    cout << "AVERAGE spending is\t: " << avg << endl;
   } else {
     cout << "No Data can Calculated!" << endl;
   }
@@ -191,6 +193,7 @@ int main()
         "May",
         "June",
         "July",
+        "August",
         "September",
         "October",
         "November",
@@ -216,7 +219,7 @@ int main()
         }
         cout << ">>> ";
         cin >> tmp;
-
+        //add if temp is string invalid input and try again
         if(tmp == 1) {
             cout << "\n";
             printCalendar();
@@ -226,8 +229,25 @@ int main()
             // MONTHS
             // only run when first data entered (which is tmp_month)
             if(!root_data_exist) {
-                cout << "INSERT MONTH (1-12) >>> ";
-                cin >> tmp_month;
+
+            while (true)
+            {
+            cout << "INSERT MONTH (1-12) >>> ";
+            cin >> tmp_month;
+            if (tmp_month > 12)
+            {
+                cout << "Invalid Input! \n";
+            }
+            else if (tmp_month < 1)
+            {
+                cout <<"Invalid Input \n";
+            }
+            else
+                    break;
+
+                }
+                //Insert if function so when user input more than 12 it prints invalid
+
                 // DEFINE ROOT
                 tree->root = new TreeNode(tmp_month);
                 root_data_exist = true;
@@ -236,7 +256,11 @@ int main()
             }
 
             //Input date for week and day
-            cout << "INSET DATE >>> ";
+            cout << "INSERT DATE >>> ";
+
+            //insert for loop that prints invalid when user inputs exceeding days of the month
+            //insert currency function so user can input which currency they want
+
             cin >> coba;
             tmp_week=((coba-1)/7)+1;
             tmp_day=((coba-1)%7)+1;
