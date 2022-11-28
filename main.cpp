@@ -236,11 +236,11 @@ int main()
             cin >> tmp_month;
             if (tmp_month > 12)
             {
-                cout << "Invalid Input! \n";
+                cout << "Invalid Input!" << endl << "Please try again" << endl << endl;
             }
             else if (tmp_month < 1)
             {
-                cout <<"Invalid Input \n";
+                cout <<"Invalid Input" << endl << "Please try again" << endl << endl;
             }
             else
                     break;
@@ -261,7 +261,21 @@ int main()
             //insert for loop that prints invalid when user inputs exceeding days of the month
             //insert currency function so user can input which currency they want
 
-            cin >> coba;
+            while (true)
+            {
+                cin >> coba;
+                if (coba > 31)
+                {
+                    cout << "Invalid Input!" << endl << "Please try again" << endl << endl;
+                }
+                else if (coba < 1)
+                {
+                    cout << "Invalid Input" << endl<< "Please try again" << endl<< endl;
+                }
+                else
+                    break;
+            }
+
             tmp_week=((coba-1)/7)+1;
             tmp_day=((coba-1)%7)+1;
 
@@ -319,6 +333,7 @@ int main()
             exited = true;
         } else {
             cout << "Invalid Input!" << endl;
+            break;
         }
     }
 
