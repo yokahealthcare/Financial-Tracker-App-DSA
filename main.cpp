@@ -86,44 +86,6 @@ void printVectors(vector<int> k) {
         cout << i << endl;
 }
 
-
-
-// function for finding the Total, Min, Max, Avg spending
-void MinMaxAvg(double data[], int size, double& min, double& max, double& avg)
-{
-    if(size<=0)
-    return;
-
-    min = data[0];
-    max = 0;
-    int count = 0;
-    double sum = 0;
-    int i;
-    avg = 0;
-
-    for (i=0; i < size; i++)
-    {
-		count++;
-        sum += data[i];
-
-        if ( data[i] > max)
-        {
-            max=data[i];
-        }
-
-        else if (data[i] < max)
-        {
-            min=data[i];
-        }
-    }
-    avg = sum/(double)count;
-    cout<< "Your TOTAL spending was: Rp." << sum << endl;
-}
-
-
-
-
-
 int main()
 {
     cout << "# WELCOME! #" << endl;
@@ -221,18 +183,6 @@ int main()
             cout << "Invalid Input!" << endl;
         }
     }
-
-    // calling function for finding the Total, Min, Max, Avg spending
-    double min,max,avg;
-    double data[]={1,2,3,4,5};                                        // Put money spendings here
-    int sizeofdata = sizeof(data)/sizeof(data[0]);
-
-    MinMaxAvg (data, sizeofdata, min, max, avg);
-
-    cout<< "Your LOWEST spending was: Rp. " << min << endl;
-    cout<< "Your HIGHEST spending was: Rp." << max << endl;
-    cout<< "Your AVERAGE spending was: Rp." << avg << endl;
-
 
     return 0;
 }

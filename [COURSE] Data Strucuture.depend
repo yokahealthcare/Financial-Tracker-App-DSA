@@ -26,17 +26,3 @@
 	<bits/stdc++.h>
 	"calendar.h"
 
-1669530128 source:c:\users\vin\documents\github\financial-tracker-app-dsa\main.cpp
-	<iostream>
-	<list>
-	<vector>
-	<algorithm>
-	<bits/stdc++.h>
-	"calendar.h"
-
-1669430335 c:\users\vin\documents\github\financial-tracker-app-dsa\include\calendar.h
-
-1669430335 source:c:\users\vin\documents\github\financial-tracker-app-dsa\src\calendar.cpp
-	<bits/stdc++.h>
-	"calendar.h"
-
