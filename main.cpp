@@ -94,8 +94,6 @@ void sumList(NodeList *head){
     cout << sum;
 }
 
-
-
 int getIndex(vector<int> v, int K)
 {
     auto it = find(v.begin(), v.end(), K);
@@ -114,7 +112,6 @@ int getIndex(vector<int> v, int K)
         return -1;
     }
 }
-
 
 // function for printing the elements in a list
 void showlist(list<int> g)
@@ -175,9 +172,6 @@ int main()
     cout << "# WELCOME! #" << endl;
     cout << "FINANCIAL TRACKER APP\n" << endl;
 
-    // to print a calendar. Just for user references
-    //printCalendar();
-
     string menus[] = {
         "View Calendar",
         "Add",
@@ -200,12 +194,19 @@ int main()
         "December"
     };
 
+    // VARIABLE & CLASS INITIALIZATION
+    // current date/time based on current system
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    int currentYear = 1900 + ltm->tm_year;
+
     // DEFINE TREE
     NAryTree *tree = new NAryTree();
 
     // DEFINE LINKED LIST
     NodeList *head = NULL;
 
+    // VARIABLES
     int tmp, tmp_month, tmp_week, tmp_day, tmp_expense, coba;
     bool exited = false, root_data_exist = false;
     vector<int> week_vector;
@@ -219,7 +220,8 @@ int main()
         }
         cout << ">>> ";
         cin >> tmp;
-        //add if temp is string invalid input and try again
+
+        // add if temp is string invalid input and try again
         if(tmp == 1) {
             cout << "\n";
             printCalendar();
@@ -229,82 +231,70 @@ int main()
             // MONTHS
             // only run when first data entered (which is tmp_month)
             if(!root_data_exist) {
+                // LOOP UNTIL USER ENTER CORRECT INPUT OF MONTH
+                while(true) {
+                    cout << "INSERT MONTH (1-12) >>> ";
+                    cin >> tmp_month;
 
-            while (true)
-            {
-            cout << "INSERT MONTH (1-12) >>> ";
-            cin >> tmp_month;
-            if (tmp_month > 12 || tmp_month < 1)
-            {
-                cout << "Invalid Input!" << endl << "Please try again" << endl << endl;
-            }
-            else
-                    break;
-
+                    // Insert if function so when user input more than 12 it prints invalid
+                    if (tmp_month > 12 || tmp_month < 1) {
+                        cout << "Invalid Input!" << endl << "Please try again" << endl << endl;
+                    }
+                    else
+                        break;
                 }
-                //Insert if function so when user input more than 12 it prints invalid
 
                 // DEFINE ROOT
                 tree->root = new TreeNode(tmp_month);
                 root_data_exist = true;
             } else {
+                // Print this word if program already on second iteration
                 cout << "\nSELECTED MONTH : " << month[tmp_month-1] << endl;
             }
 
-            //Input date for week and day
-            cout << "INSERT DATE >>> ";
 
             //insert for loop that prints invalid when user inputs exceeding days of the month
             //insert currency function so user can input which currency they want
 
-            if (tmp_month == 2)
-            {
-            while (true)
-            {
+            while(true) {
+                //Input date for week and day
+                cout << "INSERT DATE >>> ";
                 cin >> coba;
-                if (coba > 28 || coba < 1)
-                {
-                    cout << "Invalid Input!" << endl << "Please try again" << endl << endl;
+
+                if (tmp_month == 2) {
+                    int limit = 28;
+
+                    // run only for year of leap / kabisat
+                    if(currentYear % 4 == 0)
+                        limit = 29;
+
+                    if (coba > limit || coba < 1)
+                        cout << "Invalid Input!" << endl << "Please try again" << endl << endl;
+                    else
+                        break;
                 }
-                else
-                    break;
-            }
-            }
-
-            else if (tmp_month == 1 || tmp_month == 3 || tmp_month == 5 || tmp_month == 7 || tmp_month == 8 || tmp_month == 10 || tmp_month == 12)
-            {
-            while (true)
-            {
-                cin >> coba;
-                if (coba > 31 || coba < 1)
-                {
-                    cout << "Invalid Input!" << endl << "Please try again" << endl << endl;
+                // for months that has maximum day of 31
+                else if (tmp_month == 1 || tmp_month == 3 || tmp_month == 5 || tmp_month == 7 || tmp_month == 8 || tmp_month == 10 || tmp_month == 12) {
+                    if (coba > 31 || coba < 1)
+                        cout << "Invalid Input!" << endl << "Please try again" << endl << endl;
+                    else
+                        break;
                 }
-                else
-                    break;
-            }
-            }
-
-            else if (tmp_month == 4 || tmp_month == 6 || tmp_month == 9 || tmp_month == 11)
-            {
-            while (true)
-            {
-                cin >> coba;
-                if (coba > 30 || coba < 1)
-                {
-                    cout << "Invalid Input!" << endl << "Please try again" << endl << endl;
+                // for months that has maximum day of 30
+                else if (tmp_month == 4 || tmp_month == 6 || tmp_month == 9 || tmp_month == 11) {
+                    if (coba > 30 || coba < 1)
+                        cout << "Invalid Input!" << endl << "Please try again" << endl << endl;
+                    else
+                        break;
                 }
-                else
-                    break;
-            }
             }
 
-
-
+            // doing some calculation of date
+            // decide what number of day on that week
             tmp_week=((coba-1)/7)+1;
             tmp_day=((coba-1)%7)+1;
 
-
+            // TREE STORING
             // WEEK
             // check whether week has been entered before
             int week_index = getIndex(week_vector, tmp_week);
@@ -334,7 +324,7 @@ int main()
             cout << "INSERT YOUR EXPENSE ON THIS DAY >>> ";
             cin >> tmp_expense;
 
-            // ADD EXPENSES TO LINKED LIST
+            // ADD EXPENSES TO LINKED LIST FOR FUTHER ANALYSIS
             head = insertList(head, tmp_expense);
 
             // create #3 sub-tree from day
@@ -355,12 +345,13 @@ int main()
 
         } else if(tmp == 4) {
             // EXIT
+            cout << "\nThank You!" << endl;
+            cout << "See You Again!\n" << endl;
             exited = true;
         } else {
             cout << "Invalid Input!" << endl;
             break;
         }
     }
-
     return 0;
 }
