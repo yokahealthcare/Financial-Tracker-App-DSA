@@ -6,8 +6,6 @@
 #include "calendar.h"
 using namespace std;
 
-//maybe add currency conversion
-
 // NODE
 class TreeNode
 {
@@ -85,7 +83,7 @@ void PrintList(NodeList *head){
 }
 //function to sum of the linked list
 void sumList(NodeList *head){
-    cout << "Total Expenses \t\t: ";
+    cout << "Total Spending \t\t: ";
     int sum = 0;
     while(head != NULL){
         sum += head -> data;
@@ -163,14 +161,25 @@ void MinMaxAvg(vector<int> data) {
     cout << "HIGHEST spending was\t: " << max << endl;
     cout << "AVERAGE spending is\t: " << avg << endl;
   } else {
-    cout << "No Data can Calculated!" << endl;
+    cout << "\nNo Data can Calculated!" << endl;
   }
 }
 
 int main()
 {
-    cout << "# WELCOME! #" << endl;
-    cout << "FINANCIAL TRACKER APP\n" << endl;
+    cout << "================================ WELCOME! ================================" << endl;
+    cout << "=======================MONTHLY FINANCIAL TRACKER APP======================\n\n" << endl;
+    cout << "This app tracks your spendings on each day of a choosen month.\n" << endl;
+    cout << "Functionalities of this app:\n1) View Calendar -> view the monthly calendar of any month in any year" << endl;
+    cout << "\t- You can check the dates and day of the week" << endl;
+    cout << "2) Add -> Add spending to a date of the month\n\t- The spendings will be organized in a tree based on month, week, and day of week" << endl;
+    cout << "\t- preorder or tree is given after input\n3) Summary -> View current summary\n\n" << endl;
+    cout << "Input requirements:\n1) The program only accepts numbers as input\n\t- Month (1 to 12)\n\t- Expense (no symbols or currency attched)" << endl;
+    cout << "2) This app tracks the spendings of 1 month, you can not jump between months" << endl;
+
+    do {
+      cout << "\nClick Enter to Start!";
+    } while (cin.get () != '\n');
 
     string menus[] = {
         "View Calendar",
@@ -345,9 +354,14 @@ int main()
 
         } else if(tmp == 4) {
             // EXIT
-            cout << "\nThank You!" << endl;
-            cout << "See You Again!\n" << endl;
-            exited = true;
+            char c;
+	        cout << "\n\n!!!Confirm End Program!!!\nEnter 0 to confirm exit and 1 to cancel" << endl;
+			cin >> c;
+			if (toupper(c) == '0'){
+		        cout << "\n\n\n\n\n\nThank you for using this financial tracker, See you again!" << endl;
+		        exited = true;
+			}
+
         } else {
             cout << "Invalid Input!" << endl;
             break;
