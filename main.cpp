@@ -10,7 +10,6 @@ using namespace std;
 class TreeNode
 {
 	public:
-
     int data;
 	vector <TreeNode*> child;
 	TreeNode(int data)
@@ -83,7 +82,7 @@ void PrintList(NodeList *head){
 }
 //function to sum of the linked list
 void sumList(NodeList *head){
-    cout << "Total Spending \t\t: ";
+    cout << "TOTAL Expenses \t\t: ";
     int sum = 0;
     while(head != NULL){
         sum += head -> data;
@@ -146,15 +145,15 @@ void MinMaxAvg(vector<int> data) {
 
     for (int i = 0; i < size; i++) {
       sum += data[i];
-
       if (data[i] > max) {
         max = data[i];
       }
 
-      else if (data[i] < min) {
+      if(data[i] < min) {
         min = data[i];
       }
     }
+
     avg = sum / size;
     cout << endl;
     cout << "LOWEST  spending was\t: " << min << endl;
@@ -216,13 +215,14 @@ int main()
     NodeList *head = NULL;
 
     // VARIABLES
-    int tmp, tmp_month, tmp_week, tmp_day, tmp_expense, coba;
-    bool exited = false, root_data_exist = false;
+    int tmp, tmp_month, tmp_week, tmp_day, tmp_expense, coba, tmp_balance;
+    bool exited = false, root_data_exist = false, balance_data_exist = false;
     vector<int> week_vector;
     vector<vector<int>> day_vector = {{}, {}, {}, {}};
 
     // PROGRAM START
     while(!exited) {
+        start:
         cout << "\n";
         for(int i = 0; i < 4; i++) {
             cout << i+1 << ") " << menus[i] << endl;
@@ -245,8 +245,11 @@ int main()
                     cout << "INSERT MONTH (1-12) >>> ";
                     cin >> tmp_month;
 
+                     cout << "INSERT BUDGET FOR THIS MONTH >>> ";
+                     cin >> tmp_balance;
+
                     // Insert if function so when user input more than 12 it prints invalid
-                    if (tmp_month > 12 || tmp_month < 1) {
+                    if (tmp_month > 12 || tmp_month < 1 || tmp_balance < 0) {
                         cout << "Invalid Input!" << endl << "Please try again" << endl << endl;
                     }
                     else
@@ -258,7 +261,8 @@ int main()
                 root_data_exist = true;
             } else {
                 // Print this word if program already on second iteration
-                cout << "\nSELECTED MONTH : " << month[tmp_month-1] << endl;
+                cout << "\nSELECTED MONTH\t\t: " << month[tmp_month-1] << endl;
+                cout << "REMAINING BUDGET\t: " << tmp_balance << endl;
             }
 
 
@@ -333,6 +337,15 @@ int main()
             cout << "INSERT YOUR EXPENSE ON THIS DAY >>> ";
             cin >> tmp_expense;
 
+            // REMAINING BUDGET UPDATE VALUE
+            // CHECK REMAINING BALANCE IF IT NEGATIVE, IF IT IS JUMP TO START
+            if((tmp_balance-tmp_expense) < 0) {
+                cout << "Balance Insufficient!" << endl;
+                goto start;
+            }
+
+            tmp_balance -= tmp_expense;
+
             // ADD EXPENSES TO LINKED LIST FOR FUTHER ANALYSIS
             head = insertList(head, tmp_expense);
 
@@ -346,6 +359,7 @@ int main()
 
         } else if(tmp == 3) {
             cout << "\nSUMMARY OF FINANCIAL TRACKER\n" << endl;
+            cout << "REMAINING BUDGET\t: " << tmp_balance << endl;
             sumList(head);
             // calling function for finding the Total, Min, Max, Avg spending
             vector<int> arrList;
