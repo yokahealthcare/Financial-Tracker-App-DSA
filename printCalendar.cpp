@@ -78,36 +78,34 @@ void printCalendar(int year){
 	
 	cout << "Enter year: ";
 	cin >> year;
-	cout << "\n";
 	
 	cout << "Enter month number (1-12): ";
 	cin >> monthNumber;
-	cout << "\n";
 	
-	cout << "	Year: " << year << "\n";  //print year
+	cout << "\n\n\t\t=====CALENDAR=====\n";
+	cout << "Year: " << year << "\n";  //print year
 	
 	monthNumber -= 1; //adjust month number
 	
 	days = numberOfDays (monthNumber, year);
 
-	// Print the month name
-	cout << "------------"<<getMonthName (monthNumber).c_str() << "------------\n";		
-	cout << "number of days: "<< numberOfDays(monthNumber, year)<< "\n";
+
+	cout << "\n----------------------"<<getMonthName (monthNumber).c_str() << "---------------------\n\n";		
 
 		// Print the columns
-	cout << " Sun Mon Tue Wed Thu Fri Sat\n";
+	cout << " Sun\tMon\tTue\tWed\tThu\tFri\tSat\n\n";
 	
     int current = dayNumber (1, monthNumber+1, year);   // Index of the day from 0 to 6
 	
 	// Print appropriate spaces
-	for (i = 0; i < current; i++) cout << "     ";     //spacing still needs to be fixed
+	for (i = 0; i < current; i++) cout << "\t";    
 
 	for (int j = 1; j <= days; j++){
-		cout << " " << j << "  ";
+		cout << j << "\t";
 
 		if (++i > 6){
 			i = 0;
-			cout << "\n";
+			cout << "\n\n";
 			}
 	}
 
@@ -115,17 +113,7 @@ void printCalendar(int year){
 	cout << "\n";
 
 	current = i;
+	
 
 	return;
 }
-
-/*
-int main()
-{
-	int year;
-	
-	printCalendar(year);
-
-	return (0);
-}
-*/
