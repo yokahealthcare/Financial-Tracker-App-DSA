@@ -111,6 +111,7 @@ int dayNumber(int day, int month, int year)
 	static int t[] = { 0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4 };
 	year -= month < 3;
 
+<<<<<<< Updated upstream
 	return ( year + year/4 - year/100 + year/400 + t[month-1] + day) % 7;
 }
 
@@ -206,11 +207,39 @@ void printCalendar(int year){
 	current = i;
 
 	return;
+=======
+      else if (data[i]>=0){
+            if (data[i]< min) {
+                min = data[i];
+        }
+      }
+    }
+    avg = sum / size;
+    cout << endl;
+    cout << "LOWEST  spending was\t: " << min << endl;
+    cout << "HIGHEST spending was\t: " << max << endl;
+    cout << "AVERAGE spending is\t: " << avg << endl;
+  } else {
+    cout << "No Data can Calculated!" << endl;
+  }
+>>>>>>> Stashed changes
 }
 
 int main()
 {
+<<<<<<< Updated upstream
     cout << "\t\tWelcome to your\n\tMonthly Financial Tracker\n";
+=======
+    cout << "================================ WELCOME! ================================" << endl;
+    cout << "=======================MONTHLY FINANCIAL TRACKER APP======================\n\n" << endl;
+    cout << "This app tracks your spendings on each day of a choosen month.\n" << endl;
+    cout << "Functionalities of this app:\n1) View Calendar -> view the monthly calendar of any month in any year" << endl;
+    cout << "\t- You can check the dates and day of the week" << endl;
+    cout << "2) Add -> Add spending to a date of the month\n\t- The spendings will be organized in a tree based on month, week, and day of week" << endl;
+    cout << "\t- preorder or tree is given after input\n3) Summary -> View current summary\n\n" << endl;
+    cout << "Input requirements:\n1) The program only accepts numbers as input\n\t- Month (1 to 12)\n\t- Expense (no symbols or currency attched)" << endl;
+    cout << "2) This app tracks the spendings of 1 month, you can not jump between months" << endl;
+>>>>>>> Stashed changes
 
     string menus[] = {
         "View Calendar",
